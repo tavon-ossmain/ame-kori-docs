@@ -64,6 +64,7 @@ canvas{display:block;width:100%;touch-action:none}
 <div class="header"><h1>Arizona Moving Experts</h1><p>(240) 406-3031 &bull; support@arizonamovingexperts.com</p></div>
 <div class="accent-bar"></div>
 <div class="container">
+
   <div class="card">
     <h2>Customer Information</h2>
     <div class="detail-row"><span class="detail-label">Customer</span><span class="detail-value">Kori</span></div>
@@ -71,13 +72,15 @@ canvas{display:block;width:100%;touch-action:none}
     <div class="detail-row"><span class="detail-label">Email</span><span class="detail-value">Korimmax@gmail.com</span></div>
     <div class="detail-row"><span class="detail-label">Billing Contact</span><span class="detail-value">Corey (Mother)</span></div>
   </div>
+
   <div class="card">
     <h2>Move Details</h2>
-    <div class="detail-row"><span class="detail-label">Move Date</span><span class="detail-value">Wed, April 9, 2026 @ 8:30 AM</span></div>
-    <div class="detail-row"><span class="detail-label">Service</span><span class="detail-value">Load &amp; Unload (Full Service)</span></div>
+    <div class="detail-row"><span class="detail-label">Move Date</span><span class="detail-value">Wed, April 9, 2026 @ 2:00 PM</span></div>
+    <div class="detail-row"><span class="detail-label">Service</span><span class="detail-value">Load & Unload (Full Service)</span></div>
     <div class="detail-row"><span class="detail-label">Crew</span><span class="detail-value">2 Professional Movers + AME Truck</span></div>
     <div class="detail-row"><span class="detail-label">Est. Duration</span><span class="detail-value">2 Hours (Minimum)</span></div>
   </div>
+
   <div class="card">
     <h2>Locations</h2>
     <div class="detail-row"><span class="detail-label">From</span><span class="detail-value">1217 E Diamond, Phoenix, AZ</span></div>
@@ -86,6 +89,7 @@ canvas{display:block;width:100%;touch-action:none}
     <div class="detail-row"><span class="detail-label">Home Type</span><span class="detail-value">3 Bed / 1 Bath &bull; Lower Level</span></div>
     <div class="detail-row"><span class="detail-label">Distance</span><span class="detail-value">~4.8 miles</span></div>
   </div>
+
   <div class="card">
     <h2>Items to Move</h2>
     <ul class="items-list">
@@ -95,6 +99,7 @@ canvas{display:block;width:100%;touch-action:none}
       <li>3 Bedroom Contents (beds, dressers, etc.)</li>
     </ul>
   </div>
+
   <div class="card">
     <h2>Pricing Breakdown</h2>
     <table class="price-table">
@@ -104,17 +109,20 @@ canvas{display:block;width:100%;touch-action:none}
       <tr class="total-row"><td colspan="2">ESTIMATED TOTAL</td><td>$460.00</td></tr>
     </table>
   </div>
+
   <div class="price-box">
     <div class="label">ESTIMATED TOTAL</div>
     <div class="amount">$460.00</div>
     <div class="sub">$165/hr each additional hour beyond 2 hrs</div>
     <div class="deposit">10% Deposit: $46.00 (secures your spot)</div>
   </div>
+
   <div class="note-banner">
     <strong>Note:</strong> This is a non-binding estimate. Final charges are based on actual time and services provided. Hourly rate begins at arrival and ends when fully unloaded.
   </div>
+
   <div class="card">
-    <h2>Terms &amp; Conditions</h2>
+    <h2>Terms & Conditions</h2>
     <ol class="terms">
       <li>A 10% deposit ($46.00) is required to confirm your booking.</li>
       <li>Estimated total of $460 covers the first 2 hours + truck. Additional time billed at $165/hr.</li>
@@ -127,26 +135,32 @@ canvas{display:block;width:100%;touch-action:none}
       <li>AME reserves the right to refuse items deemed hazardous or illegal.</li>
     </ol>
   </div>
+
   <div class="card sig-section">
     <h2>Sign Below to Confirm</h2>
     <p>By signing, I agree to the terms above and authorize Arizona Moving Experts to perform the described moving services on April 9, 2026.</p>
     <div class="sig-canvas-wrap"><canvas id="sigCanvas" height="180"></canvas><div class="sig-hint" id="sigHint">Sign here with your finger</div></div>
     <div class="btn-row">
       <button class="btn btn-clear" id="clearBtn">Clear</button>
-      <button class="btn btn-submit" id="submitBtn" disabled>Submit &amp; Sign</button>
+      <button class="btn btn-submit" id="submitBtn" disabled>Submit & Sign</button>
     </div>
   </div>
+
   <a href="https://buy.stripe.com/28E9ATcVf98Bcq18I0bAs0E" target="_blank" class="btn-pay no-print">Pay $46.00 Deposit to Confirm Booking</a>
+
 </div>
 </div>
+
 <div class="success-overlay" id="successOverlay">
   <div class="check">&#10003;</div>
   <h2>Agreement Signed!</h2>
-  <p>Thank you, Kori! Your moving agreement has been submitted.<br><br>Your move is confirmed for<br><strong>Wednesday, April 9 at 8:30 AM</strong><br><br>Please pay your $46 deposit below to lock in your spot.</p>
+  <p>Thank you, Kori! Your moving agreement has been submitted.<br><br>Your move is confirmed for<br><strong>Wednesday, April 9 at 2:00 PM</strong><br><br>Please pay your $46 deposit below to lock in your spot.</p>
   <a href="https://buy.stripe.com/28E9ATcVf98Bcq18I0bAs0E" target="_blank" class="btn-pay-overlay">Pay $46.00 Deposit Now</a>
   <button class="btn-pdf" id="downloadPdfBtn" style="margin-top:14px">Download Agreement as PDF</button>
 </div>
+
 <div class="footer">Quote #AME-2026-0409-KM &bull; Arizona Moving Experts &bull; Phoenix Metro Area</div>
+
 <script>
 const canvas=document.getElementById('sigCanvas'),ctx=canvas.getContext('2d'),hint=document.getElementById('sigHint'),clearBtn=document.getElementById('clearBtn'),submitBtn=document.getElementById('submitBtn'),overlay=document.getElementById('successOverlay');
 let drawing=false,hasSigned=false;
@@ -163,7 +177,7 @@ submitBtn.addEventListener('click',()=>{
   if(!hasSigned)return;
   const sigData=canvas.toDataURL('image/png');
   const subject=encodeURIComponent('AME Agreement Signed - Kori (April 9 Move)');
-  const body=encodeURIComponent('AGREEMENT SIGNED by Kori\n\nMove Date: Wed, April 9, 2026 @ 8:30 AM\nFrom: 1217 E Diamond, Phoenix\nTo: 523 W Coolidge, Phoenix\nCrew: 2 Movers + AME Truck\nTotal: $460 | Deposit: $46\nQuote #AME-2026-0409-KM\n\nSigned at: '+new Date().toLocaleString());
+  const body=encodeURIComponent('AGREEMENT SIGNED by Kori\n\nMove Date: Wed, April 9, 2026 @ 2:00 PM\nFrom: 1217 E Diamond, Phoenix\nTo: 523 W Coolidge, Phoenix\nCrew: 2 Movers + AME Truck\nTotal: $460 | Deposit: $46\nQuote #AME-2026-0409-KM\n\nSigned at: '+new Date().toLocaleString());
   const mailLink=document.createElement('a');
   mailLink.href='mailto:support@arizonamovingexperts.com?subject='+subject+'&body='+body;
   mailLink.click();
