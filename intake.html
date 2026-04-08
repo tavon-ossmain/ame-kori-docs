@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>AME - Customer Intake Form</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f5f5;color:#1B2A4A}
+.header{background:#1B2A4A;padding:20px 16px;text-align:center}
+.header h1{color:#fff;font-size:18px;font-weight:700}
+.header p{color:#D4A843;font-size:12px;margin-top:4px}
+.accent-bar{height:3px;background:#D4A843}
+.container{padding:16px;max-width:600px;margin:0 auto}
+.card{background:#fff;border-radius:10px;padding:16px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,0.08)}
+.card h2{font-size:14px;color:#1B2A4A;margin-bottom:12px;border-bottom:2px solid #D4A843;padding-bottom:6px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12px;color:#888;margin-bottom:4px;font-weight:500}
+.field input,.field select,.field textarea{width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;font-family:inherit;color:#1B2A4A;background:#FAFAFA;outline:none;-webkit-appearance:none}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#D4A843;background:#FFFDF5}
+.field textarea{min-height:80px;resize:vertical}
+.field-row{display:flex;gap:10px}
+.field-row .field{flex:1}
+.pre-filled{background:#f0f0f0 !important;color:#666 !important}
+.section-label{background:#1B2A4A;color:#fff;padding:8px 12px;border-radius:6px;font-size:12px;font-weight:700;margin-bottom:12px;letter-spacing:0.5px}
+.check-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.check-item{display:flex;align-items:center;gap:8px;font-size:13px;padding:8px;background:#FAFAFA;border-radius:6px;border:1px solid #eee;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.check-item:active{background:#FFFDF5;border-color:#D4A843}
+.check-item input[type="checkbox"]{width:18px;height:18px;accent-color:#D4A843;flex-shrink:0}
+.btn-submit-form{background:#D4A843;color:#1B2A4A;width:100%;padding:16px;border:none;border-radius:10px;font-size:16px;font-weight:800;cursor:pointer;transition:all 0.2s;margin-top:10px}
+.btn-submit-form:active{background:#c4982f;transform:scale(0.98)}
+.btn-pdf{background:#1B2A4A;color:#fff;margin-top:14px;padding:14px 40px;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;display:inline-block}
+.success-overlay{display:none;position:fixed;inset:0;background:rgba(27,42,74,0.95);z-index:100;justify-content:center;align-items:center;flex-direction:column;color:#fff;text-align:center;padding:30px}
+.success-overlay.show{display:flex}
+.success-overlay .check{font-size:60px;margin-bottom:16px}
+.success-overlay h2{font-size:22px;margin-bottom:8px}
+.success-overlay p{color:#B0B0B0;font-size:14px;line-height:1.5}
+.footer{text-align:center;padding:16px;font-size:11px;color:#aaa}
+.note{background:#FFFDF5;border:1px solid #D4A843;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#8B7A2E}
+.note strong{color:#1B2A4A}
+@media(max-width:400px){.check-grid{grid-template-columns:1fr}.field-row{flex-direction:column;gap:0}}
+</style>
+</head>
+<body>
+<div id="intakeContent">
+<div class="header"><h1>Arizona Moving Experts</h1><p>(240) 406-3031 &bull; support@arizonamovingexperts.com</p></div>
+<div class="accent-bar"></div>
+<div class="container">
+
+  <div class="note">
+    <strong>Hey Kori!</strong> We've pre-filled what we know. Just review, fill in anything missing, and hit Submit at the bottom.
+  </div>
+
+  <!-- CUSTOMER INFO -->
+  <div class="card">
+    <h2>Customer Information</h2>
+    <div class="field"><label>Full Name</label><input type="text" value="Kori" id="fname"></div>
+    <div class="field-row">
+      <div class="field"><label>Phone</label><input type="tel" value="(928) 221-2841" id="phone"></div>
+      <div class="field"><label>Alt Phone</label><input type="tel" placeholder="If applicable" id="altphone"></div>
+    </div>
+    <div class="field"><label>Email</label><input type="email" value="Korimmax@gmail.com" id="email"></div>
+    <div class="field-row">
+      <div class="field"><label>Billing Contact</label><input type="text" value="Corey (Mother)" id="billing"></div>
+      <div class="field"><label>Billing Phone</label><input type="tel" placeholder="Type here" id="billingphone"></div>
+    </div>
+  </div>
+
+  <!-- MOVE DETAILS -->
+  <div class="card">
+    <h2>Move Details</h2>
+    <div class="field-row">
+      <div class="field"><label>Move Date</label><input type="text" value="Wednesday, April 9, 2026" id="movedate"></div>
+      <div class="field"><label>Start Time</label><input type="text" value="8:30 AM" id="starttime"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Service Type</label><input type="text" value="Load & Unload (Full Service)" class="pre-filled" readonly></div>
+      <div class="field"><label>Crew Size</label><input type="text" value="2 Movers" class="pre-filled" readonly></div>
+    </div>
+    <div class="field"><label>Truck</label><input type="text" value="AME Provides Truck (+$130 truck fee)" class="pre-filled" readonly></div>
+  </div>
+
+  <!-- ORIGIN -->
+  <div class="card">
+    <div class="section-label">ORIGIN (Loading Location)</div>
+    <div class="field"><label>Address</label><input type="text" value="1217 E Diamond" id="origaddr"></div>
+    <div class="field-row">
+      <div class="field"><label>City</label><input type="text" value="Phoenix" id="origcity"></div>
+      <div class="field"><label>State</label><input type="text" value="AZ" id="origstate"></div>
+      <div class="field"><label>Zip</label><input type="text" placeholder="Type here" id="origzip"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Apt/Unit</label><input type="text" placeholder="If applicable" id="origunit"></div>
+      <div class="field"><label>Floor</label><input type="text" value="Lower Level" id="origfloor"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Stairs / Flights</label><input type="text" placeholder="e.g. None, 1 flight" id="origstairs"></div>
+      <div class="field"><label>Elevator?</label>
+        <select id="origelev"><option value="">Select</option><option>Yes</option><option>No</option><option>N/A</option></select>
+      </div>
+    </div>
+    <div class="field"><label>Gate Code / Access Notes</label><input type="text" placeholder="Gate code, parking info, etc." id="origaccess"></div>
+  </div>
+
+  <!-- DESTINATION -->
+  <div class="card">
+    <div class="section-label">DESTINATION (Unloading Location)</div>
+    <div class="field"><label>Address</label><input type="text" value="523 W Coolidge" id="destaddr"></div>
+    <div class="field-row">
+      <div class="field"><label>City</label><input type="text" value="Phoenix" id="destcity"></div>
+      <div class="field"><label>State</label><input type="text" value="AZ" id="deststate"></div>
+      <div class="field"><label>Zip</label><input type="text" placeholder="Type here" id="destzip"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Apt/Unit</label><input type="text" placeholder="If applicable" id="destunit"></div>
+      <div class="field"><label>Floor</label><input type="text" value="Lower Level" id="destfloor"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Stairs / Flights</label><input type="text" placeholder="e.g. None, 1 flight" id="deststairs"></div>
+      <div class="field"><label>Elevator?</label>
+        <select id="destelev"><option value="">Select</option><option>Yes</option><option>No</option><option>N/A</option></select>
+      </div>
+    </div>
+    <div class="field"><label>Gate Code / Access Notes</label><input type="text" placeholder="Gate code, parking info, etc." id="destaccess"></div>
+  </div>
+
+  <!-- INVENTORY -->
+  <div class="card">
+    <h2>Items to Move (Check all that apply)</h2>
+
+    <div class="section-label">BEDROOM</div>
+    <div class="check-grid">
+      <label class="check-item"><input type="checkbox" checked> Bed Frame(s) & Mattress(es)</label>
+      <label class="check-item"><input type="checkbox" checked> Dresser(s)</label>
+      <label class="check-item"><input type="checkbox"> Nightstand(s)</label>
+      <label class="check-item"><input type="checkbox"> Wardrobe / Armoire</label>
+      <label class="check-item"><input type="checkbox"> Desk / Chair</label>
+      <label class="check-item"><input type="checkbox"> Mirror</label>
+    </div>
+
+    <div class="section-label" style="margin-top:14px">LIVING ROOM</div>
+    <div class="check-grid">
+      <label class="check-item"><input type="checkbox" checked> Couch / Sofa (x2 large)</label>
+      <label class="check-item"><input type="checkbox" checked> Loveseat</label>
+      <label class="check-item"><input type="checkbox" checked> Dining Table (rod iron)</label>
+      <label class="check-item"><input type="checkbox"> Coffee / End Tables</label>
+      <label class="check-item"><input type="checkbox"> TV / Entertainment Center</label>
+      <label class="check-item"><input type="checkbox"> Bookshelf</label>
+    </div>
+
+    <div class="section-label" style="margin-top:14px">KITCHEN / MISC</div>
+    <div class="check-grid">
+      <label class="check-item"><input type="checkbox"> Refrigerator</label>
+      <label class="check-item"><input type="checkbox"> Washer / Dryer</label>
+      <label class="check-item"><input type="checkbox"> Small Appliances</label>
+      <label class="check-item"><input type="checkbox"> Pots / Pans / Dishes</label>
+      <label class="check-item"><input type="checkbox"> Outdoor Furniture</label>
+      <label class="check-item"><input type="checkbox"> Exercise Equipment</label>
+    </div>
+
+    <div class="field" style="margin-top:14px">
+      <label>Estimated # of Boxes</label>
+      <input type="text" placeholder="How many boxes?" id="boxes">
+    </div>
+    <div class="field">
+      <label>Additional Items / Special Notes</label>
+      <textarea placeholder="List anything else we should know about (fragile items, items that won't disassemble, etc.)" id="notes">Rod iron dining table will NOT come apart - need to move as one piece.</textarea>
+    </div>
+  </div>
+
+  <!-- SPECIAL INSTRUCTIONS -->
+  <div class="card">
+    <h2>Special Instructions</h2>
+    <div class="field">
+      <textarea placeholder="Any special instructions for our crew? (parking restrictions, narrow hallways, items to be careful with, etc.)" id="instructions"></textarea>
+    </div>
+  </div>
+
+  <button class="btn-submit-form" id="submitFormBtn">Submit Intake Form</button>
+
+</div>
+</div>
+
+<div class="success-overlay" id="successOverlay">
+  <div class="check">&#10003;</div>
+  <h2>Form Submitted!</h2>
+  <p>Thanks, Kori! We've received your intake form.<br><br>Our crew will arrive at<br><strong>8:30 AM on Wednesday, April 9</strong><br>at 1217 E Diamond, Phoenix.<br><br>If anything changes, call or text us at<br><strong>(240) 406-3031</strong></p>
+  <button class="btn-pdf" id="downloadPdfBtn">Download Intake Form as PDF</button>
+</div>
+
+<div class="footer">Arizona Moving Experts &bull; Phoenix Metro Area &bull; (240) 406-3031</div>
+
+<script>
+document.getElementById('submitFormBtn').addEventListener('click',function(){
+  const data={
+    name:document.getElementById('fname').value,
+    phone:document.getElementById('phone').value,
+    email:document.getElementById('email').value,
+    billing:document.getElementById('billing').value,
+    moveDate:document.getElementById('movedate').value,
+    startTime:document.getElementById('starttime').value,
+    origAddr:document.getElementById('origaddr').value,
+    origCity:document.getElementById('origcity').value,
+    origZip:document.getElementById('origzip').value,
+    origFloor:document.getElementById('origfloor').value,
+    origStairs:document.getElementById('origstairs').value,
+    origAccess:document.getElementById('origaccess').value,
+    destAddr:document.getElementById('destaddr').value,
+    destCity:document.getElementById('destcity').value,
+    destZip:document.getElementById('destzip').value,
+    destFloor:document.getElementById('destfloor').value,
+    destStairs:document.getElementById('deststairs').value,
+    destAccess:document.getElementById('destaccess').value,
+    boxes:document.getElementById('boxes').value,
+    notes:document.getElementById('notes').value,
+    instructions:document.getElementById('instructions').value
+  };
+  const checked=[];
+  document.querySelectorAll('.check-item input:checked').forEach(cb=>{
+    checked.push(cb.parentElement.textContent.trim());
+  });
+  const subject=encodeURIComponent('AME Intake Form - '+data.name+' (April 9 Move)');
+  const body=encodeURIComponent(
+    'INTAKE FORM SUBMITTED\nSubmitted: '+new Date().toLocaleString()+'\n\n'+
+    'Name: '+data.name+'\nPhone: '+data.phone+'\nEmail: '+data.email+'\nBilling: '+data.billing+'\n\n'+
+    'Move: '+data.moveDate+' @ '+data.startTime+'\n\n'+
+    'FROM: '+data.origAddr+', '+data.origCity+' '+data.origZip+'\nFloor: '+data.origFloor+' | Stairs: '+data.origStairs+'\nAccess: '+data.origAccess+'\n\n'+
+    'TO: '+data.destAddr+', '+data.destCity+' '+data.destZip+'\nFloor: '+data.destFloor+' | Stairs: '+data.destStairs+'\nAccess: '+data.destAccess+'\n\n'+
+    'ITEMS: '+checked.join(', ')+'\nBoxes: '+data.boxes+'\nNotes: '+data.notes+'\n\nSpecial Instructions: '+data.instructions
+  );
+  const a=document.createElement('a');
+  a.href='mailto:support@arizonamovingexperts.com?subject='+subject+'&body='+body;
+  a.click();
+  document.getElementById('successOverlay').classList.add('show');
+});
+
+document.getElementById('downloadPdfBtn').addEventListener('click',function(){
+  document.getElementById('successOverlay').style.display='none';
+  document.querySelector('.btn-submit-form').style.display='none';
+  html2pdf().set({margin:0.3,filename:'AME_IntakeForm_Kori.pdf',image:{type:'jpeg',quality:0.98},html2canvas:{scale:2},jsPDF:{unit:'in',format:'letter',orientation:'portrait'}}).from(document.getElementById('intakeContent')).save().then(()=>{document.querySelector('.btn-submit-form').style.display='';document.getElementById('successOverlay').style.display='flex'});
+});
+</script>
+</body>
+</html>
