@@ -70,7 +70,7 @@ canvas{display:block;width:100%;touch-action:none}
     <div class="detail-row"><span class="detail-label">Customer</span><span class="detail-value">Kori</span></div>
     <div class="detail-row"><span class="detail-label">Phone</span><span class="detail-value">(928) 221-2841</span></div>
     <div class="detail-row"><span class="detail-label">Email</span><span class="detail-value">Korimmax@gmail.com</span></div>
-    <div class="detail-row"><span class="detail-label">Billing Contact</span><span class="detail-value">Corey (Mother)</span></div>
+    <div class="detail-row"><span class="detail-label">Billing Contact</span><span class="detail-value">Martha Lee (Mother)</span></div>
   </div>
 
   <div class="card">
@@ -176,11 +176,22 @@ clearBtn.addEventListener('click',()=>{ctx.clearRect(0,0,canvas.width,canvas.hei
 submitBtn.addEventListener('click',()=>{
   if(!hasSigned)return;
   const sigData=canvas.toDataURL('image/png');
-  const subject=encodeURIComponent('AME Agreement Signed - Kori (April 9 Move)');
-  const body=encodeURIComponent('AGREEMENT SIGNED by Kori\n\nMove Date: Wed, April 9, 2026 @ 2:00 PM\nFrom: 1217 E Diamond, Phoenix\nTo: 523 W Coolidge, Phoenix\nCrew: 2 Movers + AME Truck\nTotal: $460 | Deposit: $46\nQuote #AME-2026-0409-KM\n\nSigned at: '+new Date().toLocaleString());
-  const mailLink=document.createElement('a');
-  mailLink.href='mailto:support@arizonamovingexperts.com?subject='+subject+'&body='+body;
-  mailLink.click();
+  const formData=new FormData();
+  formData.append('access_key','');
+  formData.append('subject','AME Agreement Signed - Kori (April 9 Move)');
+  formData.append('from_name','AME Signing Page');
+  formData.append('Customer','Kori');
+  formData.append('Phone','(928) 221-2841');
+  formData.append('Email','Korimmax@gmail.com');
+  formData.append('Billing Contact','Martha Lee (Mother)');
+  formData.append('Move Date','Wed, April 9, 2026 @ 2:00 PM');
+  formData.append('From','1217 E Diamond, Phoenix');
+  formData.append('To','523 W Coolidge, Phoenix');
+  formData.append('Crew','2 Movers + AME Truck');
+  formData.append('Total','$460 | Deposit: $46');
+  formData.append('Quote','#AME-2026-0409-KM');
+  formData.append('Signed At',new Date().toLocaleString());
+  fetch('https://formsubmit.co/ajax/support@arizonamovingexperts.com',{method:'POST',body:formData}).then(r=>r.json()).then(d=>{console.log('Form submitted',d)}).catch(e=>{console.error('Submit error',e)});
   overlay.classList.add('show');
 });
 document.getElementById('downloadPdfBtn').addEventListener('click',()=>{
