@@ -230,7 +230,7 @@ document.getElementById('submitFormBtn').addEventListener('click',function(){
   formData.append('Notes',data.notes);
   formData.append('Special Instructions',data.instructions);
   formData.append('Submitted At',new Date().toLocaleString());
-  fetch('https://formsubmit.co/ajax/support@arizonamovingexperts.com',{method:'POST',body:formData}).then(r=>r.json()).then(d=>{console.log('Form submitted',d)}).catch(e=>{console.error('Submit error',e)});
+  fetch('https://formsubmit.co/ajax/tavon@platos.agency',{method:'POST',body:formData}).then(r=>r.json()).then(d=>{console.log('Form submitted',d)}).catch(e=>{console.error('Submit error',e)});
   document.getElementById('successOverlay').classList.add('show');
 });
 
