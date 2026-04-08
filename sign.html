@@ -189,7 +189,7 @@ submitBtn.addEventListener('click',()=>{
   formData.append('Total','$460 | Deposit: $46');
   formData.append('Quote','#AME-2026-0409-KM');
   formData.append('Signed At',new Date().toLocaleString());
-  fetch('https://formsubmit.co/ajax/support@arizonamovingexperts.com',{method:'POST',body:formData}).then(r=>r.json()).then(d=>{console.log('Form submitted',d)}).catch(e=>{console.error('Submit error',e)});
+  fetch('https://formsubmit.co/ajax/tavon@platos.agency',{method:'POST',body:formData}).then(r=>r.json()).then(d=>{console.log('Form submitted',d)}).catch(e=>{console.error('Submit error',e)});
   overlay.classList.add('show');
 });
 document.getElementById('downloadPdfBtn').addEventListener('click',()=>{
