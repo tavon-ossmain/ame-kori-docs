@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>AME - Sign Your Moving Agreement</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f5f5;color:#1B2A4A}
+.header{background:#1B2A4A;padding:20px 16px;text-align:center}
+.header h1{color:#fff;font-size:18px;font-weight:700}
+.header p{color:#D4A843;font-size:12px;margin-top:4px}
+.accent-bar{height:3px;background:#D4A843}
+.container{padding:16px;max-width:600px;margin:0 auto}
+.card{background:#fff;border-radius:10px;padding:16px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,0.08)}
+.card h2{font-size:14px;color:#1B2A4A;margin-bottom:10px;border-bottom:2px solid #D4A843;padding-bottom:6px}
+.detail-row{display:flex;justify-content:space-between;padding:6px 0;font-size:13px;border-bottom:1px solid #f0f0f0;align-items:center;flex-wrap:wrap}
+.detail-row:last-child{border-bottom:none}
+.detail-label{color:#888;min-width:90px}
+.detail-value{color:#1B2A4A;font-weight:600;text-align:right;max-width:65%}
+.price-box{background:#1B2A4A;border-radius:10px;padding:18px;text-align:center;margin-bottom:14px}
+.price-box .label{color:#B0B0B0;font-size:12px}
+.price-box .amount{color:#fff;font-size:26px;font-weight:800;margin:4px 0}
+.price-box .sub{color:#D4A843;font-size:13px;font-weight:600}
+.price-box .deposit{color:#B0B0B0;font-size:12px;margin-top:4px}
+.price-table{width:100%;font-size:12px;border-collapse:collapse;margin-top:8px}
+.price-table th{text-align:left;color:#888;padding:4px 0;border-bottom:1px solid #eee;font-weight:500}
+.price-table td{padding:4px 0;border-bottom:1px solid #f5f5f5}
+.price-table td:last-child,.price-table th:last-child{text-align:right}
+.price-table .total-row td{border-top:2px solid #D4A843;font-weight:800;font-size:14px;padding-top:8px}
+.items-list{font-size:13px;color:#1B2A4A;line-height:1.8;padding-left:16px}
+.items-list li{margin-bottom:2px}
+.terms{font-size:11px;color:#666;line-height:1.6}
+.terms li{margin-bottom:4px}
+.sig-section{text-align:center}
+.sig-section p{font-size:13px;color:#666;margin-bottom:12px}
+.sig-canvas-wrap{border:2px dashed #D4A843;border-radius:10px;background:#FFFDF5;position:relative;margin-bottom:10px;overflow:hidden}
+canvas{display:block;width:100%;touch-action:none}
+.sig-hint{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#ccc;font-size:16px;pointer-events:none;transition:opacity 0.3s}
+.btn-row{display:flex;gap:10px;margin-top:10px}
+.btn{flex:1;padding:14px;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s}
+.btn-clear{background:#eee;color:#666}
+.btn-submit{background:#D4A843;color:#1B2A4A}
+.btn-submit:disabled{background:#ddd;color:#aaa}
+.btn-submit:not(:disabled):active{background:#c4982f;transform:scale(0.98)}
+.btn-pay{background:#28a745;color:#fff;margin-top:10px;width:100%;padding:16px;border:none;border-radius:10px;font-size:16px;font-weight:800;cursor:pointer;text-decoration:none;display:block;text-align:center}
+.btn-pay:active{background:#218838;transform:scale(0.98)}
+.btn-pdf{background:#1B2A4A;color:#fff;margin-top:10px;padding:14px 40px;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;width:auto;display:inline-block}
+.success-overlay{display:none;position:fixed;inset:0;background:rgba(27,42,74,0.95);z-index:100;justify-content:center;align-items:center;flex-direction:column;color:#fff;text-align:center;padding:30px}
+.success-overlay.show{display:flex}
+.success-overlay .check{font-size:60px;margin-bottom:16px}
+.success-overlay h2{font-size:22px;margin-bottom:8px}
+.success-overlay p{color:#B0B0B0;font-size:14px;line-height:1.5}
+.success-overlay .btn-pay-overlay{background:#28a745;color:#fff;margin-top:20px;padding:16px 40px;border:none;border-radius:10px;font-size:16px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-block}
+.footer{text-align:center;padding:16px;font-size:11px;color:#aaa}
+.note-banner{background:#FFFDF5;border:1px solid #D4A843;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#8B7A2E}
+.note-banner strong{color:#1B2A4A}
+@media(max-width:400px){.detail-value{max-width:55%;font-size:12px}.price-box .amount{font-size:22px}}
+</style>
+</head>
+<body>
+<div id="agreementContent">
+<div class="header"><h1>Arizona Moving Experts</h1><p>(240) 406-3031 &bull; support@arizonamovingexperts.com</p></div>
+<div class="accent-bar"></div>
+<div class="container">
+  <div class="card">
+    <h2>Customer Information</h2>
+    <div class="detail-row"><span class="detail-label">Customer</span><span class="detail-value">Kori</span></div>
+    <div class="detail-row"><span class="detail-label">Phone</span><span class="detail-value">(928) 221-2841</span></div>
+    <div class="detail-row"><span class="detail-label">Email</span><span class="detail-value">Korimmax@gmail.com</span></div>
+    <div class="detail-row"><span class="detail-label">Billing Contact</span><span class="detail-value">Corey (Mother)</span></div>
+  </div>
+  <div class="card">
+    <h2>Move Details</h2>
+    <div class="detail-row"><span class="detail-label">Move Date</span><span class="detail-value">Wed, April 9, 2026 @ 8:30 AM</span></div>
+    <div class="detail-row"><span class="detail-label">Service</span><span class="detail-value">Load &amp; Unload (Full Service)</span></div>
+    <div class="detail-row"><span class="detail-label">Crew</span><span class="detail-value">2 Professional Movers + AME Truck</span></div>
+    <div class="detail-row"><span class="detail-label">Est. Duration</span><span class="detail-value">2 Hours (Minimum)</span></div>
+  </div>
+  <div class="card">
+    <h2>Locations</h2>
+    <div class="detail-row"><span class="detail-label">From</span><span class="detail-value">1217 E Diamond, Phoenix, AZ</span></div>
+    <div class="detail-row"><span class="detail-label">Home Type</span><span class="detail-value">1-2 Bed &bull; Lower Level &bull; 1,200 sqft</span></div>
+    <div class="detail-row"><span class="detail-label">To</span><span class="detail-value">523 W Coolidge, Phoenix, AZ</span></div>
+    <div class="detail-row"><span class="detail-label">Home Type</span><span class="detail-value">3 Bed / 1 Bath &bull; Lower Level</span></div>
+    <div class="detail-row"><span class="detail-label">Distance</span><span class="detail-value">~4.8 miles</span></div>
+  </div>
+  <div class="card">
+    <h2>Items to Move</h2>
+    <ul class="items-list">
+      <li>2 Large Couches</li>
+      <li>1 Loveseat</li>
+      <li>1 Large Rod Iron Dining Table <em style="color:#888;font-size:11px">(won't disassemble)</em></li>
+      <li>3 Bedroom Contents (beds, dressers, etc.)</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h2>Pricing Breakdown</h2>
+    <table class="price-table">
+      <tr><th>Service</th><th>Details</th><th>Cost</th></tr>
+      <tr><td>Moving Labor</td><td>2 Movers &times; 2 hrs @ $165/hr</td><td>$330.00</td></tr>
+      <tr><td>Truck Fee</td><td>AME Moving Truck</td><td>$130.00</td></tr>
+      <tr class="total-row"><td colspan="2">ESTIMATED TOTAL</td><td>$460.00</td></tr>
+    </table>
+  </div>
+  <div class="price-box">
+    <div class="label">ESTIMATED TOTAL</div>
+    <div class="amount">$460.00</div>
+    <div class="sub">$165/hr each additional hour beyond 2 hrs</div>
+    <div class="deposit">10% Deposit: $46.00 (secures your spot)</div>
+  </div>
+  <div class="note-banner">
+    <strong>Note:</strong> This is a non-binding estimate. Final charges are based on actual time and services provided. Hourly rate begins at arrival and ends when fully unloaded.
+  </div>
+  <div class="card">
+    <h2>Terms &amp; Conditions</h2>
+    <ol class="terms">
+      <li>A 10% deposit ($46.00) is required to confirm your booking.</li>
+      <li>Estimated total of $460 covers the first 2 hours + truck. Additional time billed at $165/hr.</li>
+      <li>Remaining balance is due upon completion of services.</li>
+      <li>Cancellations less than 24 hours before the move may forfeit the deposit.</li>
+      <li>Arizona Moving Experts is not liable for pre-existing damage to items.</li>
+      <li>Customer is responsible for disconnecting all appliances prior to move.</li>
+      <li>Customer must ensure clear pathways and parking access at both locations.</li>
+      <li>AME is not liable for items not properly packed by the customer.</li>
+      <li>AME reserves the right to refuse items deemed hazardous or illegal.</li>
+    </ol>
+  </div>
+  <div class="card sig-section">
+    <h2>Sign Below to Confirm</h2>
+    <p>By signing, I agree to the terms above and authorize Arizona Moving Experts to perform the described moving services on April 9, 2026.</p>
+    <div class="sig-canvas-wrap"><canvas id="sigCanvas" height="180"></canvas><div class="sig-hint" id="sigHint">Sign here with your finger</div></div>
+    <div class="btn-row">
+      <button class="btn btn-clear" id="clearBtn">Clear</button>
+      <button class="btn btn-submit" id="submitBtn" disabled>Submit &amp; Sign</button>
+    </div>
+  </div>
+  <a href="https://buy.stripe.com/28E9ATcVf98Bcq18I0bAs0E" target="_blank" class="btn-pay no-print">Pay $46.00 Deposit to Confirm Booking</a>
+</div>
+</div>
+<div class="success-overlay" id="successOverlay">
+  <div class="check">&#10003;</div>
+  <h2>Agreement Signed!</h2>
+  <p>Thank you, Kori! Your moving agreement has been submitted.<br><br>Your move is confirmed for<br><strong>Wednesday, April 9 at 8:30 AM</strong><br><br>Please pay your $46 deposit below to lock in your spot.</p>
+  <a href="https://buy.stripe.com/28E9ATcVf98Bcq18I0bAs0E" target="_blank" class="btn-pay-overlay">Pay $46.00 Deposit Now</a>
+  <button class="btn-pdf" id="downloadPdfBtn" style="margin-top:14px">Download Agreement as PDF</button>
+</div>
+<div class="footer">Quote #AME-2026-0409-KM &bull; Arizona Moving Experts &bull; Phoenix Metro Area</div>
+<script>
+const canvas=document.getElementById('sigCanvas'),ctx=canvas.getContext('2d'),hint=document.getElementById('sigHint'),clearBtn=document.getElementById('clearBtn'),submitBtn=document.getElementById('submitBtn'),overlay=document.getElementById('successOverlay');
+let drawing=false,hasSigned=false;
+function resizeCanvas(){const r=canvas.parentElement.getBoundingClientRect();canvas.width=r.width;canvas.height=180;ctx.strokeStyle='#1B2A4A';ctx.lineWidth=2.5;ctx.lineCap='round';ctx.lineJoin='round'}
+resizeCanvas();window.addEventListener('resize',resizeCanvas);
+function getPos(e){const r=canvas.getBoundingClientRect(),t=e.touches?e.touches[0]:e;return{x:t.clientX-r.left,y:t.clientY-r.top}}
+function startDraw(e){e.preventDefault();drawing=true;if(!hasSigned){hasSigned=true;hint.style.opacity='0';submitBtn.disabled=false}const p=getPos(e);ctx.beginPath();ctx.moveTo(p.x,p.y)}
+function draw(e){if(!drawing)return;e.preventDefault();const p=getPos(e);ctx.lineTo(p.x,p.y);ctx.stroke()}
+function stopDraw(e){if(drawing){e.preventDefault();drawing=false}}
+canvas.addEventListener('mousedown',startDraw);canvas.addEventListener('mousemove',draw);canvas.addEventListener('mouseup',stopDraw);
+canvas.addEventListener('touchstart',startDraw,{passive:false});canvas.addEventListener('touchmove',draw,{passive:false});canvas.addEventListener('touchend',stopDraw,{passive:false});
+clearBtn.addEventListener('click',()=>{ctx.clearRect(0,0,canvas.width,canvas.height);hasSigned=false;hint.style.opacity='1';submitBtn.disabled=true});
+submitBtn.addEventListener('click',()=>{
+  if(!hasSigned)return;
+  const sigData=canvas.toDataURL('image/png');
+  const subject=encodeURIComponent('AME Agreement Signed - Kori (April 9 Move)');
+  const body=encodeURIComponent('AGREEMENT SIGNED by Kori\n\nMove Date: Wed, April 9, 2026 @ 8:30 AM\nFrom: 1217 E Diamond, Phoenix\nTo: 523 W Coolidge, Phoenix\nCrew: 2 Movers + AME Truck\nTotal: $460 | Deposit: $46\nQuote #AME-2026-0409-KM\n\nSigned at: '+new Date().toLocaleString());
+  const mailLink=document.createElement('a');
+  mailLink.href='mailto:support@arizonamovingexperts.com?subject='+subject+'&body='+body;
+  mailLink.click();
+  overlay.classList.add('show');
+});
+document.getElementById('downloadPdfBtn').addEventListener('click',()=>{
+  overlay.style.display='none';
+  document.querySelectorAll('.no-print').forEach(e=>e.style.display='none');
+  html2pdf().set({margin:0.3,filename:'AME_Agreement_Kori.pdf',image:{type:'jpeg',quality:0.98},html2canvas:{scale:2},jsPDF:{unit:'in',format:'letter',orientation:'portrait'}}).from(document.getElementById('agreementContent')).save().then(()=>{document.querySelectorAll('.no-print').forEach(e=>e.style.display='');overlay.style.display='flex'});
+});
+</script>
+</body>
+</html>
