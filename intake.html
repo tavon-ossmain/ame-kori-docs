@@ -62,7 +62,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
     </div>
     <div class="field"><label>Email</label><input type="email" value="Korimmax@gmail.com" id="email"></div>
     <div class="field-row">
-      <div class="field"><label>Billing Contact</label><input type="text" value="Corey (Mother)" id="billing"></div>
+      <div class="field"><label>Billing Contact</label><input type="text" value="Martha Lee (Mother)" id="billing"></div>
       <div class="field"><label>Billing Phone</label><input type="tel" placeholder="Type here" id="billingphone"></div>
     </div>
   </div>
@@ -220,18 +220,23 @@ document.getElementById('submitFormBtn').addEventListener('click',function(){
   document.querySelectorAll('.check-item input:checked').forEach(cb=>{
     checked.push(cb.parentElement.textContent.trim());
   });
-  const subject=encodeURIComponent('AME Intake Form - '+data.name+' (April 9 Move)');
-  const body=encodeURIComponent(
-    'INTAKE FORM SUBMITTED\nSubmitted: '+new Date().toLocaleString()+'\n\n'+
-    'Name: '+data.name+'\nPhone: '+data.phone+'\nEmail: '+data.email+'\nBilling: '+data.billing+'\n\n'+
-    'Move: '+data.moveDate+' @ '+data.startTime+'\n\n'+
-    'FROM: '+data.origAddr+', '+data.origCity+' '+data.origZip+'\nFloor: '+data.origFloor+' | Stairs: '+data.origStairs+'\nAccess: '+data.origAccess+'\n\n'+
-    'TO: '+data.destAddr+', '+data.destCity+' '+data.destZip+'\nFloor: '+data.destFloor+' | Stairs: '+data.destStairs+'\nAccess: '+data.destAccess+'\n\n'+
-    'ITEMS: '+checked.join(', ')+'\nBoxes: '+data.boxes+'\nNotes: '+data.notes+'\n\nSpecial Instructions: '+data.instructions
-  );
-  const a=document.createElement('a');
-  a.href='mailto:support@arizonamovingexperts.com?subject='+subject+'&body='+body;
-  a.click();
+  const formData=new FormData();
+  formData.append('access_key','');
+  formData.append('subject','AME Intake Form - '+data.name+' (April 9 Move)');
+  formData.append('from_name','AME Intake Form');
+  formData.append('Customer',data.name);
+  formData.append('Phone',data.phone);
+  formData.append('Email',data.email);
+  formData.append('Billing Contact',data.billing);
+  formData.append('Move Date',data.moveDate+' @ '+data.startTime);
+  formData.append('Origin',data.origAddr+', '+data.origCity+' '+data.origZip+' | Floor: '+data.origFloor+' | Stairs: '+data.origStairs+' | Access: '+data.origAccess);
+  formData.append('Destination',data.destAddr+', '+data.destCity+' '+data.destZip+' | Floor: '+data.destFloor+' | Stairs: '+data.destStairs+' | Access: '+data.destAccess);
+  formData.append('Items',checked.join(', '));
+  formData.append('Boxes',data.boxes);
+  formData.append('Notes',data.notes);
+  formData.append('Special Instructions',data.instructions);
+  formData.append('Submitted At',new Date().toLocaleString());
+  fetch('https://formsubmit.co/ajax/support@arizonamovingexperts.com',{method:'POST',body:formData}).then(r=>r.json()).then(d=>{console.log('Form submitted',d)}).catch(e=>{console.error('Submit error',e)});
   document.getElementById('successOverlay').classList.add('show');
 });
 
